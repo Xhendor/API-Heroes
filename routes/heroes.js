@@ -11,6 +11,15 @@ router.get('/',async function(req,res,next){
         next(err);
     }
 });
+router.get('/:id',async function(req,res,next){
+
+    try{
+        res.json(await heroes.getByID(req.params.id));
+    }catch(err){
+        console.error(`Error al obtener el Heroe`,err.message);
+        next(err);
+    }
+});
 router.post('/',async function(req,res,next){
     try{
         console.error(req.body);

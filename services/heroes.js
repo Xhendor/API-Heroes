@@ -8,13 +8,19 @@ async function getMultiple(page =1){
     const rows= await db.query(`SELECT id, name 
         FROM heroes LIMIT ${offset},${config.listPerPage}`);
     const data = helper.emptyOrRows(rows);
-    const meta= {page};
+    //const meta= {page};
     
-    return {data,meta}
+    return data
     
     }
     
-
+    async function getByID(id =1){
+      const rows= await db.query(`SELECT id, name 
+          FROM heroes where id= ${id}`);
+      const data = helper.emptyOrRows(rows);
+      return data[0]
+      }
+      
     async function create(heroe){
         const result= await db.query(`INSERT INTO heroes 
         (name) 
@@ -51,4 +57,4 @@ async function getMultiple(page =1){
         return {message};
     };
 
-    module.exports={getMultiple,create,update,remove}
+    module.exports={getMultiple,create,update,remove,getByID}
